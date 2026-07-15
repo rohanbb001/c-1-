@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    printf("값을 입력하세요. ");
+    if (scanf("%d", &n) != 1) return 0;
+
+    for (int i = 1; i <= n; i++) {
+        if (i == 1) {
+            // 첫 번째 줄은 항상 별 1개
+            printf("*\n");
+        }
+        else if (i == n) {
+            // 마지막 줄은 (2*n - 1)개의 별을 연속으로 출력
+            for (int j = 0; j < 2 * n - 1; j++) {
+                printf("*");
+            }
+            printf("\n");
+        }
+        else {
+            // 중간 줄들: 별 + 빈칸 + 별
+            printf("*");
+            // 빈칸 개수는 2*i - 3개
+            for (int j = 0; j < 2 * i - 3; j++) {
+                printf(" ");
+            }
+            printf("*\n");
+        }
+    }
+
+    return 0;
+}
