@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int main() {
+    double numbers[5];
+    double sum = 0.0;
+    double max, min, average;
+
+    printf("5개의 실수를 입력하세요:\n");
+
+    // 1. 5개의 실수 입력받기 및 합계 구하기
+    for (int i = 0; i < 5; i++) {
+        printf("%d번째 실수: ", i + 1);
+        scanf_s("%lf", &numbers[i]);
+        sum += numbers[i];
+    }
+
+    // 2. 최댓값과 최소값의 초기값을 첫 번째 입력값으로 설정
+    max = numbers[0];
+    min = numbers[0];
+
+    // 3. 배열을 돌며 최댓값과 최소값 찾기
+    for (int i = 1; i < 5; i++) {
+        if (numbers[i] > max) {
+            max = numbers[i];
+        }
+        if (numbers[i] < min) {
+            min = numbers[i];
+        }
+    }
+
+    // 4. 평균 계산
+    average = sum / 5.0;
+
+    // 5. 결과 출력 (소수점 아래 2자리까지 표시)
+    printf("\n--- 결과 ---\n");
+    printf("평균  : %.2f\n", average);
+    printf("최댓값: %.2f\n", max);
+    printf("최소값: %.2f\n", min);
+
+    return 0;
+}
