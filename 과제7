@@ -1,0 +1,77 @@
+#include <stdio.h>
+
+int main() {
+    int n, r;
+    printf("n과 r을 입력하세요 (공백으로 구분): ");
+    if (scanf("%d %d", &n, &r) != 2) return 0;
+
+    // 예외 처리 (n이 r보다 작거나 음수일 때 등 기본적인 방어 코드)
+    if (n < 0 || r < 0) {
+        printf("올바른 값을 입력해주세요.\n");
+        return 0;
+    }
+
+    // 1. 순열 (nPr) 계산
+    // nPr = n * (n-1) * ... * (n-r+1)
+    long long nPr = 1;
+    if (r <= n) {
+        for (int i = 0; i < r; i++) {
+            nPr *= (n - i);
+        }
+    }
+    else {
+        nPr = 0; // r이 n보다 크면 순열은 0
+    }
+
+    // 2. 중복순열 (n∏r) 계산
+    // n^r 계산
+    long long nPiR = 1;
+    for (int i = 0; i < r; i++) {
+        nPiR *= n;
+    }
+
+    // 3. 조합 (nCr) 계산
+    // nCr = nPr / r!
+    long long nCr = 0;
+    if (r <= n) {
+        long long r_factorial = 1;
+        for (int i = 1; i <= r; i++) {
+            r_factorial *= i;
+        }
+        nCr = nPr / r_factorial;
+    }
+    else {
+        nCr = 0; // r이 n보다 크면 조합은 0
+    }
+
+    // 4. 중복조합 (nHr) 계산
+    // nHr = (n+r-1)C_r
+    long long nHr = 0;
+    int N_prime = n + r - 1; // 새로운 N 값
+
+    if (r <= N_prime && N_prime >= 0) {
+        // (n+r-1)Pr 계산
+        long long nPr_prime = 1;
+        for (int i = 0; i < r; i++) {
+            nPr_prime *= (N_prime - i);
+        }
+        // r! 계산
+        long long r_factorial = 1;
+        for (int i = 1; i <= r; i++) {
+            r_factorial *= i;
+        }
+        nHr = nPr_prime / r_factorial;
+    }
+    else {
+        nHr = 0;
+    }
+
+    // 결과 출력
+    printf("\n--- 결과 ---\n");
+    printf("순열 (nPr): %lld\n", nPr);
+    printf("중복순열 (n∏r): %lld\n", nPiR);
+    printf("조합 (nCr): %lld\n", nCr);
+    printf("중복조합 (nHr): %lld\n", nHr);
+
+    return 0;
+}
